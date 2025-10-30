@@ -1,16 +1,26 @@
 // Import the HTTP module
 const http = require('http');
 
+// Define the port to listen on
+const PORT = 3000;
+
 // Create a server object
 const server = http.createServer((req, res) => {
-  // Set the response HTTP header with HTTP status and Content type
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  // Set Content-Type header for all responses
+  res.setHeader('Content-Type', 'text/plain');
 
-  // Send the response body as 'Hello, World!'
-  res.end('Hello, World!\n');
+  // Simple routing logic
+  if (req.url === '/') {
+    res.writeHead(200);
+    res.end('Hello, World!\n');
+  } else if (req.url === '/about') {
+    res.writeHead(200);
+    res.end('This is the About page.\n');
+  } else {
+    res.writeHead(404);
+    res.end('404 Not Found\n');
+  }
 });
-
-// Define the port to listen on const PORT = 3000;
 
 // Start the server and listen on the specified port
 server.listen(PORT, 'localhost', () => {
